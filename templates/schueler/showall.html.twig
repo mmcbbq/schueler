@@ -3,8 +3,11 @@
     {% for schueler in schuelers %}
         <li>
                 <div>
-                        <a href="/schueler/show/{{ schueler.id }}">{{ schueler.nachname }}</a>
+                        <a href="/schueler/read/{{ schueler.id }}">{{ schueler.nachname }}</a>
                 </div>
         </li>
     {% endfor %}
 </ul>
+
+<h2>Operations</h2>
+<button type="button" onclick="window.location.href='/schueler/create';">Create</button>

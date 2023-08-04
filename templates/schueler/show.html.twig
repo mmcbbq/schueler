@@ -1,4 +1,18 @@
-<div>{{ schueler.nachname }}</div>
-<div>{{ schueler.telefonNummer }}</div>
-<div>{{ schueler.email }}</div>
-<div>{{ schueler.kommentar }}</div>
+
+<h1>Schueler IDNr. {{ schueler.id }}</h1>
+
+<ul>
+    <li>Vorname : {{ schueler.vorname }}</li>
+    <li>Nachname : {{ schueler.nachname }}</li>
+    <li>Telefon : {{ schueler.telefonNummer }}</li>
+    <li>e-Mail : {{ schueler.email }}</li>
+    <li>Kommentar : {{ schueler.kommentar }}</li>
+</ul>
+
+<h2>Operations</h2>
+<button type="button" onclick="window.location.href='/schueler/update/{{ schueler.id }}';">Update</button>
+<button type="button" onclick="window.location.href='/schueler/delete/{{ schueler.id }}';">Delete</button>
+<button type="button" onclick="window.location.href='/schueler/showall';">Show All Schueler</button>
+
+
+
