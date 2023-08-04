@@ -1,3 +1,18 @@
+<h1>Alle Schuelers</h1>
+
+{% for schueler in schuelers %}
+    <h2>Schuler mit der ID: {{schueler.id}}</h2>
+    <div class="schueler">
+        <div>
+            <span>Nachname: </span>
+            <a href="{{ path('show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
+        </div>
+        <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
+        <div><span>Telefon: </span> <span>{{ schueler.telefonnummer}}</span> </div>
+        <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
+    </div>
+{% endfor %}
+
 <style>
     .schueler {
         border: 1px solid #ddd;
@@ -21,18 +36,3 @@
         text-decoration: underline;
     }
 </style>
-
-<h1>Alle Schuelers</h1>
-
-{% for schueler in schuelers %}
-    <h2>Schuler mit der ID: {{schueler.id}}</h2>
-    <div class="schueler">
-        <div>
-            <span>Nachname: </span>
-            <a href="{{ path('show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
-        </div>
-        <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
-        <div><span>Telefon: </span> <span>{{ schueler.telefonnummer}}</span> </div>
-        <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
-    </div>
-{% endfor %}

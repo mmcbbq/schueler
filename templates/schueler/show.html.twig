@@ -1,3 +1,13 @@
+<h1>Schuler mit der ID: {{schueler.id}}</h1>
+<div class="schueler">
+    <div><span>Nachname: </span><span>{{ schueler.nachname}}</span> </div>
+    <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
+    <div><span>Telefon: </span> <span>{{ schueler.telefonnummer}}</span> </div>
+    <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
+</div>
+
+<a href="{{ path('showAll') }}" class="show-all-button">Show All</a>
+
 <style>
     .schueler {
         border: 1px solid #ddd;
@@ -13,7 +23,7 @@
         font-weight: bold;
     }
     .show-all-button {
-        background-color: #007bff;
+        background-color: coral;
         color: white;
         padding: 10px 20px;
         text-decoration: none;
@@ -22,16 +32,6 @@
         margin-top: 20px;
     }
     .show-all-button:hover {
-        background-color: #0056b3;
+        background-color: black;
     }
 </style>
-
-<h1>Schuler mit der ID: {{schueler.id}}</h1>
-<div class="schueler">
-    <div><span>Nachname: </span><span>{{ schueler.nachname}}</span> </div>
-    <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
-    <div><span>Telefon: </span> <span>{{ schueler.telefonnummer}}</span> </div>
-    <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
-</div>
-
-<a href="{{ path('showAll') }}" class="show-all-button">Show All</a>
