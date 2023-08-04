@@ -19,7 +19,7 @@ class SchuelerController extends AbstractController
   }
 
   //info CREATE
-  #[Route('/createSchueler')]
+  #[Route('/create')]
   public function createSchueler(EntityManagerInterface $entityManager):Response
   {
     $schueler = new Schueler();
@@ -33,23 +33,14 @@ class SchuelerController extends AbstractController
   }
 
   //info READ
-//  #[Route('/show/{slug}')]
-//  public function show(int $slug, EntityManagerInterface $entityManager): Response
-//  {
-//    $repo = $entityManager->getRepository(Schueler::class);
-//    $schueler = $repo->find($slug);
-//    return new Response('show datensatz ' . $schueler->getNachname());
-//  }
-
-  //info READ
-  #[Route('/schuelertest/{id}')]
-  public function readSchueler(Schueler $schueler):Response
+  #[Route('/show/{id}')]
+  public function show(Schueler $schueler, EntityManagerInterface $em):Response
   {
-    return new Response('Hallo '.$schueler->getNachname());
+    return $this->render('schueler/show.html.twig', ['name' => $schueler]);
   }
 
   //info UPDATE
-  #[Route('/updateSchueler/{id}')]
+  #[Route('/update/{id}')]
   public function updateSchueler(Schueler $schueler, EntityManagerInterface $entityManager):Response
   {
     $old = $schueler->getNachname();
@@ -60,7 +51,7 @@ class SchuelerController extends AbstractController
   }
 
   //info DELETE
-  #[Route('/deleteSchueler/{id}')]
+  #[Route('/delete/{id}')]
   public function deleteSchueler(Schueler $schueler, EntityManagerInterface $entityManager):Response
   {
     $old = $schueler->getNachname();
@@ -69,3 +60,14 @@ class SchuelerController extends AbstractController
     return new Response("0Schueler $old gelöscht");
   }
 }
+
+
+
+  //info READ
+//  #[Route('/show/{slug}')]
+//  public function show(int $slug, EntityManagerInterface $entityManager): Response
+//  {
+//    $repo = $entityManager->getRepository(Schueler::class);
+//    $schueler = $repo->find($slug);
+//    return new Response('show datensatz ' . $schueler->getNachname());
+//  }
