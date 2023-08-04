@@ -1,9 +1,7 @@
 <h1>Schuelers</h1>
 <ul>
     {% for schueler in schuelers %}
-        <li><div>{{ schueler.nachname }}</div>
-                <div>{{ schueler.telefonNummer }}</div>
-                <div>{{ schueler.email }}</div>
-                <div>{{ schueler.kommentar }}</div></li>
+        <li>
+                <div><a href="/schueler/show/{{ schueler.id }}">{{ schueler.nachname }}</a></div></li>
     {% endfor %}
 </ul>
