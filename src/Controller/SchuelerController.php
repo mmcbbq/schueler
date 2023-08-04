@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Controller;
-
-
-
 use App\Entity\Schueler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,10 +41,14 @@ class SchuelerController extends AbstractController
         return new Response('Schüler '.$neuerSchueler->getNachname() .' hinzugefügt');
 }
 
-    #[Route('/schuelertest/{id}')]
-    public function schuelertest (Schueler $schueler)
+    #[Route('/show/{id}')]
+    public function showschueler (Schueler $schueler):Response
     {
-        return new Response('Hallo' .$schueler->getNachname());
+
+
+        return $this->render('schueler/show.html.twig',[
+            'schueler'=> $schueler
+        ]);
     }
     #[Route('update/{id}')]
     public function update(Schueler $schueler, EntityManagerInterface $entityManager)
