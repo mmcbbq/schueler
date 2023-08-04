@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div style="width: 40%; float: left; padding: 20px;">
+        {% for schueler in schuelers %}
+
+            <a href="{{ path('schueler_show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
+            <br>
+
+        {% endfor %}
+    </div>
+    {% endblock %}

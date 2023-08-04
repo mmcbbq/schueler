@@ -41,7 +41,7 @@ class SchuelerController extends AbstractController
         return new Response('Schüler '.$neuerSchueler->getNachname() .' hinzugefügt');
 }
 
-    #[Route('/show/{id}')]
+    #[Route('/show/{id}', name: 'schueler_show')]
     public function showschueler (Schueler $schueler):Response
     {
 
@@ -50,6 +50,18 @@ class SchuelerController extends AbstractController
             'schueler'=> $schueler
         ]);
     }
+    #[Route('/showall', name: 'schueler_showall')]
+    public function showall(EntityManagerInterface $entityManager):Response
+    {
+        $rep = $entityManager->getRepository(Schueler::class);
+        $schueler = $rep->findAll();
+//        $schueler=['Erik','Petra','Simon','Maik'];
+
+        return $this->render('schueler/showall.html.twig',['schuelers'=> $schueler
+            ]);
+
+    }
+
     #[Route('update/{id}')]
     public function update(Schueler $schueler, EntityManagerInterface $entityManager)
     {
