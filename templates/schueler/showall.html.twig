@@ -2,6 +2,9 @@
 <ul>
     {% for schueler in schuelers %}
         <li>
-                <div><a href="/schueler/show/{{ schueler.id }}">{{ schueler.nachname }}</a></div></li>
+                <div>
+                        <a href="/schueler/show/{{ schueler.id }}">{{ schueler.nachname }}</a>
+                </div>
+        </li>
     {% endfor %}
 </ul>
