@@ -1,0 +1,38 @@
+<style>
+    .schueler {
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .schueler div {
+        margin-bottom: 10px;
+    }
+    .schueler span {
+        font-weight: bold;
+    }
+    .schueler a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .schueler a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+</style>
+
+<h1>Alle Schuelers</h1>
+
+{% for schueler in schuelers %}
+    <h2>Schuler mit der ID: {{schueler.id}}</h2>
+    <div class="schueler">
+        <div>
+            <span>Nachname: </span>
+            <a href="{{ path('show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
+        </div>
+        <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
+        <div><span>Telefon: </span> <span>{{ schueler.telefonnummer}}</span> </div>
+        <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
+    </div>
+{% endfor %}

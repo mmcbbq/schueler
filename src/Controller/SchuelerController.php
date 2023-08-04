@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-
 use App\Entity\Schueler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,59 +10,58 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SchuelerController extends AbstractController
 {
-
-
-    #[Route('/')]
+    #[Route('/', name: 'home')]
     public function schueler() :Response
     {
         return new Response('Hallo Welt');
     }
-    //READ
-//    #[Route('/show/{id}')]
-//    public function show(int $id,EntityManagerInterface $entityManager ):Response
-//    {
-//        $repository=$entityManager->getRepository(Schueler::class);
-//        $schueler=$repository->find($id);
-//        return new Response('show datensatz '.$schueler->getNachname());
-//    }
 
-//kurzeschreibweise für das auslesen id ist wichtig
-    #[Route('/show/{id}')]
-    public function showSchueler(Schueler $schueler,$id ):Response
+    #[Route('/show/{id}', name: 'show')]
+    public function showSchueler(Schueler $schueler, $id): Response
     {
-        return $this->render('schueler/show.html.twig', ['schueler'=>$schueler]);
+        return $this->render('schueler/show.html.twig', ['schueler' => $schueler]);
     }
 
-//CREATE
-    #[Route('/createSchueler/')]
-    public function createSchueler(EntityManagerInterface $entityManager):Response{
-        //$entityManager-ist dafür verantwortlich das objekte aus der Datenbank gespeichert und rausgelsene werden.
-        $neuerSchueler=new Schueler();
+    #[Route('/createSchueler/', name: 'create')]
+    public function createSchueler(EntityManagerInterface $entityManager): Response
+    {
+        $neuerSchueler = new Schueler();
         $neuerSchueler->setNachname('Feuerstein');
         $neuerSchueler->setEmail('f-stein@gmx.de');
         $neuerSchueler->setTelefonNummer('73737373737');
         $neuerSchueler->setKommentar('hello you');
-        //dd($neuerSchueler);//dump and die beendet und gibt  das object aus
-        $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
-        $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
+
+        $entityManager->persist($neuerSchueler);
+        $entityManager->flush();
+
         return new Response($neuerSchueler->getNachname());
     }
 
-    //UPDATE
-    #[Route('update/{id}')]
-    public function update(Schueler $schueler,EntityManagerInterface $entityManager){
-
+    #[Route('update/{id}', name: 'update')]
+    public function update(Schueler $schueler, EntityManagerInterface $entityManager)
+    {
         $schueler->setNachname('otto');
         $entityManager->persist($schueler);
-        $entityManager->flush();//flush ist wie excute und führt aus
-        return new Response('name ist jetzt: '.$schueler->getNachname());
+        $entityManager->flush();
 
+        return new Response('name ist jetzt: '.$schueler->getNachname());
     }
-    #[Route('delete/{id}')]
-    public function delete(Schueler $schueler,EntityManagerInterface $entityManager):Response{
+
+    #[Route('delete/{id}', name: 'delete')]
+    public function delete(Schueler $schueler, EntityManagerInterface $entityManager): Response
+    {
         $entityManager->remove($schueler);
         $entityManager->flush();
+
         return new Response('ist gelöscht');
     }
 
+    #[Route('/showAll', name: 'showAll')]
+    public function showAllFromDb(EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Schueler::class);
+        $schuelers = $repository->findAll();
+
+        return $this->render('schueler/showall.html.twig', ['schuelers' => $schuelers]);
+    }
 }
