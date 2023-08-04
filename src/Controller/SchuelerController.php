@@ -23,9 +23,9 @@ class SchuelerController extends AbstractController
   public function createSchueler(EntityManagerInterface $entityManager):Response
   {
     $schueler = new Schueler();
-    $schueler->setNachname('samson');
-    $schueler->setTelefonNummer('4122');
-    $schueler->setEmail('s@b.s');
+    $schueler->setNachname('grobi');
+    $schueler->setTelefonNummer('64833');
+    $schueler->setEmail('g@r.org');
     $schueler->setKommentar('sesamstrasse');
     $entityManager->persist($schueler);
     $entityManager->flush();
@@ -63,8 +63,9 @@ class SchuelerController extends AbstractController
   #[Route('/deleteSchueler/{id}')]
   public function deleteSchueler(Schueler $schueler, EntityManagerInterface $entityManager):Response
   {
+    $old = $schueler->getNachname();
     $entityManager->remove($schueler);
     $entityManager->flush();
-    return new Response('Schueler gelöscht');
+    return new Response("0Schueler $old gelöscht");
   }
 }
