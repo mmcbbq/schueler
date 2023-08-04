@@ -5,8 +5,8 @@
 
 {% block body %}
 <div class="container">
-  <ul>
   {% for schueler in schuelers %}
+  <ul>
     {% if schueler.vorname == 'Erik' %}
       <li class="green marge">hey {{ schueler.nachname }}, {{ schueler.vorname }}</li>
     {% else %}
@@ -15,9 +15,10 @@
     <li>{{ schueler.telefonNummer }}</li>
     <li>{{ schueler.email }}</li>
     <li>{{ schueler.kommentar }}</li>
-   <li><a class="btn-detail" href="{{ path('show', {'id': schueler.id}) }}">view details</a></li>
-  {% endfor %}
   </ul>
+   <a class="btn btn-detail" href="{{ path('show', {'id': schueler.id}) }}">view details</a>
+   <a class="btn btn-delete" href="{{ path('delete', {'id': schueler.id}) }}">delete</a>
+  {% endfor %}
 </div>
   {% endblock %}
 

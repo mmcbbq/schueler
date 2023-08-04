@@ -42,11 +42,19 @@ ul {
     list-style-type: none;
 }
 
-.btn-detail {
-    margin-top: 2rem;
-    padding: .5rem 1rem;
+.btn {
+    text-decoration: none;
+    margin-top: .5rem;
+    padding: .2rem .5rem;
     border: none;
     border-radius: 3rem;
     color: #dddeed;
+}
+
+.btn-detail{
     background: cadetblue;
+}
+
+.btn-delete {
+    background: red;
 }

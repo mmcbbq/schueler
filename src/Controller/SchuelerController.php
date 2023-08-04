@@ -61,7 +61,7 @@ class SchuelerController extends AbstractController
   }
 
   //info DELETE
-  #[Route('/delete/{id}')]
+  #[Route('/delete/{id}', name:'delete')]
   public function deleteSchueler(Schueler $schueler, EntityManagerInterface $entityManager):Response
   {
     $old = $schueler->getNachname();
