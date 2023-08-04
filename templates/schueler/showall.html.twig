@@ -1,6 +1,9 @@
 <h1>Schuelers</h1>
 <ul>
     {% for schueler in schuelers %}
-        <li>{{ schueler }}</li>
+        <li><div>{{ schueler.nachname }}</div>
+                <div>{{ schueler.telefonNummer }}</div>
+                <div>{{ schueler.email }}</div>
+                <div>{{ schueler.kommentar }}</div></li>
     {% endfor %}
 </ul>

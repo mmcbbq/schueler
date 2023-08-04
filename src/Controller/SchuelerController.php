@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Schueler;
 use App\Repository\SchuelerRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,11 +35,12 @@ class SchuelerController extends AbstractController
     }
 
     #[Route('schueler/showall')]
-    public function showAll() :Response
+    public function showAll(EntityManagerInterface $em) :Response
     {
-        $schuelers = ['Fil', 'Toni', 'Piero', 'Gigi'];
+        $repository=$em->getRepository(Schueler::class);
+        $schuelers = $repository->findAll();
         return $this->render('schueler/showall.html.twig',[
-            'schuelers'=> $schuelers
+            'schuelers'=>$schuelers
         ]);
     }
 
