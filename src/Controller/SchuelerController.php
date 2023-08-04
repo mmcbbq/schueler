@@ -19,17 +19,10 @@ class SchuelerController extends AbstractController
     {
         return new Response('Hallo Welt');
     }
-    //READ
-//    #[Route('/show/{id}')]
-//    public function show(int $id,EntityManagerInterface $entityManager ):Response
-//    {
-//        $repository=$entityManager->getRepository(Schueler::class);
-//        $schueler=$repository->find($id);
-//        return new Response('show datensatz '.$schueler->getNachname());
-//    }
+
 
 //kurzeschreibweise für das auslesen id ist wichtig
-    #[Route('/show/{id}')]
+    #[Route('/show/{id}', name:'showSchueler' )]
     public function showSchueler(Schueler $schueler,$id ):Response
     {
         return $this->render('schueler/show.html.twig', ['schueler'=>$schueler]);
@@ -50,6 +43,23 @@ class SchuelerController extends AbstractController
         return new Response($neuerSchueler->getNachname());
     }
 
+    #[Route('/showall')]
+    public function showAll():Response{
+
+        $schueler=['erik','petra','simon','maik'];
+        return $this->render('schueler/showall.html.twig',['schuelers'=>$schueler]);
+    }
+
+    //READ
+    #[Route('/showAllFromDb')]
+    public function showAllFromDb(EntityManagerInterface $entityManager ):Response
+    {
+        $repository=$entityManager->getRepository(Schueler::class);
+        $schuelers=$repository->findAll();
+//        dd($schuelers);
+        return $this->render('schueler/showall.html.twig', ['schuelers'=>$schuelers]);
+    }
+
     //UPDATE
     #[Route('update/{id}')]
     public function update(Schueler $schueler,EntityManagerInterface $entityManager){
@@ -66,5 +76,7 @@ class SchuelerController extends AbstractController
         $entityManager->flush();
         return new Response('ist gelöscht');
     }
+
+
 
 }

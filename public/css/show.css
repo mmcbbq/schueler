@@ -1,0 +1,20 @@
+*{
+    font-size: 16px;
+    font-family: Arial,sans-serif;
+}
+h1{
+    font-size:24px;
+}
+
+.schueler{
+    border:2px solid gray;
+    margin-bottom: 20px;
+    background-color: #e3e0e0;
+}
+.schueler-attribute{
+    margin-bottom: 5px;
+}
+span{
+    display:inline-block;
+    width:100px;
+}

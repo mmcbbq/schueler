@@ -1,5 +1,5 @@
 
-<h1>Schuler mit der ID: {{schueler.id}}</h1>
+<h1>Schueler mit der ID: {{schueler.id}}</h1>
 <div class="schueler">
     <div><span>Nachname: </span><span>{{ schueler.nachname}}</span> </div>
     <div><span>Email: </span> <span>{{ schueler.email}}</span> </div>
@@ -7,6 +7,8 @@
     <div><span>Kommentar: </span> <span>{{ schueler.kommentar}}</span> </div>
 </div>
 
-
+{% if schueler.id == '4' %}
+    <p>hello schueler {{ schueler.nachname }}</p>
+{% endif %}
 
 
