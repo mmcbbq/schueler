@@ -53,6 +53,19 @@ public function showschueler(Schueler $schueler):Response{
     $entityManager->remove($schueler);
     $entityManager->flush();
     }
+    #[Route('/showall')]
+    public function showall(){
+        $schueler = ['Erik', 'Petra', 'Simon', 'Maik'];
+        return $this->render('schueler/showall.html.twig',['schuelers'=> $schueler]);
+    }
 
+    #[Route('/showAllFromDb')]
+    public function showAllFromDb(EntityManagerInterface $entityManager ):Response
+    {
+        $repository=$entityManager->getRepository(Schueler::class);
+        $schuelers=$repository->findAll();
+//        dd($schuelers);
+        return $this->render('schueler/showall.html.twig', ['schuelers'=>$schuelers]);
+    }
 
 }

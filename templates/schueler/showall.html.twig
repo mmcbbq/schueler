@@ -1,0 +1,7 @@
+{% for schueler in schuelers  %}
+    <a href="/show/{{  schueler.id }}">{{ schueler.nachname }}</a><br>
+    {{ schueler.telefonNummer }}<br>
+    {{ schueler.email }}<br>
+    {{ schueler.kommentar }}<br>
+    <br>
+{% endfor %}
