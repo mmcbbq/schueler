@@ -29,10 +29,10 @@ class SchuelerController extends AbstractController
 //    }
 
 //kurzeschreibweise für das auslesen id ist wichtig
-    #[Route('/shuelertest/{id}')]
-    public function shuelertest(Schueler $schueler ):Response
+    #[Route('/show/{id}')]
+    public function showSchueler(Schueler $schueler,$id ):Response
     {
-        return new Response('shuelertest '.$schueler->getKommentar());
+        return $this->render('schueler/show.html.twig', ['schueler'=>$schueler]);
     }
 
 //CREATE
@@ -46,7 +46,7 @@ class SchuelerController extends AbstractController
         $neuerSchueler->setKommentar('hello you');
         //dd($neuerSchueler);//dump and die beendet und gibt  das object aus
         $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
-        $entityManager->flush(); //doctrone schaut nach allen fügt das Objekt hinzu
+        $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
         return new Response($neuerSchueler->getNachname());
     }
 
