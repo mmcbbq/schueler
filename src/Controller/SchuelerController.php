@@ -25,9 +25,13 @@ class SchuelerController extends AbstractController
 // $schueler = $repository->find($id);
 // return new Response('show datensatz '.$schueler->getNachname());
 // }
-    #[Route('/schuelertest/{id}')]
-    public function schuelertest(Schueler $schueler){
-        return new Response('Hallo '.$schueler->getNachname());
+    #[Route('/show/{id}')]
+    public function showschueler(Schueler $schueler) :Response
+    {
+        return $this->render('schueler/show.html.twig',[
+            'name'=>'Ansir'
+
+        ]);
     }
 
     #[Route('/createSchueler')]
