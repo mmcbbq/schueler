@@ -85,5 +85,4 @@ class Schueler
         return $this;
     }
 
-
 }

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-
 use App\Entity\Schueler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,23 +38,36 @@ class SchuelerController extends AbstractController
         $entityManager->persist($neuerSchueler);
         $entityManager->flush();
 
-
         return new Response('Schüler '.$neuerSchueler->getNachname() .' hinzugefügt');
 }
 
     #[Route('/schuelertest/{id}')]
-    public function schuelertest (Schueler $schueler)
+    public function schuelertest (Schueler $schueler): Response
     {
         return new Response('Hallo' .$schueler->getNachname());
     }
     #[Route('update/{id}')]
-    public function update(Schueler $schueler, EntityManagerInterface $entityManager)
+    public function update(Schueler $schueler, EntityManagerInterface $entityManager): Response
     {
         $schueler->setNachname('karl');
         $entityManager->persist($schueler);
         $entityManager->flush();
         return new Response('dein name ist jetzt' .$schueler->getNachname());
-
     }
 
+    #[Route('/delete/{id}')]
+    public function delete(int $id, EntityManagerInterface $entityManager) :Response
+    {
+        $repository = $entityManager->getRepository(Schueler::class);
+        $schueler = $repository->find($id);
+
+        if ($schueler) {
+            $entityManager->remove($schueler);
+            $entityManager->flush();
+
+            return new Response('Schüler '.$schueler->getNachname() .' wurde entfernt');
+        }
+
+        return new Response('Schüler nicht gefunden');
+    }
 }
