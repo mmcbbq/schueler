@@ -19,18 +19,30 @@ class SchuelerController extends AbstractController
         return new Response('Hallo Welt');
     }
 
-    #[Route('schueler/show/{id}')]
-    public function showschueler(Schueler $schueler) :Response
-    {
-        return $this->render('schueler/show.html.twig',[
-            'schueler'=> $schueler
-        ]);
-    }
     #[Route('schueler/test/{id}')]
     public function schuelerTest (Schueler $schueler): Response
     {
         return new Response('Hello ' . $schueler->getNachname());
     }
+
+    #[Route('schueler/show/{id}')]
+    public function show(Schueler $schueler) :Response
+    {
+        return $this->render('schueler/show.html.twig',[
+            'schueler'=> $schueler
+        ]);
+    }
+
+    #[Route('schueler/showall')]
+    public function showAll() :Response
+    {
+        $schuelers = ['Fil', 'Toni', 'Piero', 'Gigi'];
+        return $this->render('schueler/showall.html.twig',[
+            'schuelers'=> $schuelers
+        ]);
+    }
+
+
 
     #[Route('/schueler/create')]
     public function create(EntityManagerInterface $em): Response
