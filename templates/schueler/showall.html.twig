@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block body %}
 {% for schueler in schuelers  %}
     <a href="/show/{{  schueler.id }}">{{ schueler.nachname }}</a><br>
     {{ schueler.telefonNummer }}<br>
@@ -5,3 +7,4 @@
     {{ schueler.kommentar }}<br>
     <br>
 {% endfor %}
+{% endblock %}
