@@ -17,7 +17,8 @@ class SchuelerController extends AbstractController
     #[Route('/')]
     public function schueler() :Response
     {
-        return new Response('Hallo Welt');
+        //$schueler=showAllFromDb();
+        return $this->render('/base.html.twig');
     }
 
 
@@ -25,22 +26,25 @@ class SchuelerController extends AbstractController
     #[Route('/show/{id}', name:'showSchueler' )]
     public function showSchueler(Schueler $schueler,$id ):Response
     {
+
         return $this->render('schueler/show.html.twig', ['schueler'=>$schueler]);
     }
 
 //CREATE
-    #[Route('/createSchueler/')]
+    #[Route('/create',name:'createSchueler' )]
     public function createSchueler(EntityManagerInterface $entityManager):Response{
         //$entityManager-ist dafür verantwortlich das objekte aus der Datenbank gespeichert und rausgelsene werden.
         $neuerSchueler=new Schueler();
-        $neuerSchueler->setNachname('Feuerstein');
-        $neuerSchueler->setEmail('f-stein@gmx.de');
-        $neuerSchueler->setTelefonNummer('73737373737');
-        $neuerSchueler->setKommentar('hello you');
+        $neuerSchueler->setVorname('Oliver');
+        $neuerSchueler->setNachname('Winterfeld');
+        $neuerSchueler->setEmail('o.winterfeld@gmx.de');
+        $neuerSchueler->setTelefonNummer('5555888989');
+        $neuerSchueler->setKommentar('uuuuahhhh');
         //dd($neuerSchueler);//dump and die beendet und gibt  das object aus
         $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
         $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
-        return new Response($neuerSchueler->getNachname());
+        return $this->render('schueler/create.html.twig', ['schuelername'=>$neuerSchueler->getNachname()]);
+//        return new Response($neuerSchueler->getNachname());
     }
 
     #[Route('/showall')]
@@ -51,7 +55,7 @@ class SchuelerController extends AbstractController
     }
 
     //READ
-    #[Route('/showAllFromDb')]
+    #[Route('/showAllFromDb',name:'showAllSchueler') ]
     public function showAllFromDb(EntityManagerInterface $entityManager ):Response
     {
         $repository=$entityManager->getRepository(Schueler::class);
