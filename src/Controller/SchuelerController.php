@@ -29,10 +29,26 @@ class SchuelerController extends AbstractController
     public function showschueler(Schueler $schueler) :Response
     {
         return $this->render('schueler/show.html.twig',[
-            'name'=>'Ansir'
+            'schueler'=> $schueler
 
         ]);
     }
+    #[Route('/showall')]
+    Public function showall(): Response
+    {
+        $schueler=['Erik','Petra','Simon','Maik'];
+        return $this->render('Schueler/showall.html.twig',['Schuelers'=> $schueler
+        ]);
+    }
+    #[Route('/showAllFromDb')]
+    public function showAllFromDb(EntityManagerInterface $entityManager ):Response
+    {
+        $repository=$entityManager->getRepository(Schueler::class);
+        $schuelers=$repository->findAll();
+//        dd($schuelers);
+        return $this->render('schueler/showall.html.twig', ['schuelers'=>$schuelers]);
+    }
+
 
     #[Route('/createSchueler')]
     public function createSchueler(EntityManagerInterface $entityManager):Response{
