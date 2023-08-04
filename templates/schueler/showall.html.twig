@@ -3,7 +3,7 @@
     {% for schueler in schuelers %}
         <li>
                 <div>
-                        <a href="/schueler/read/{{ schueler.id }}">{{ schueler.nachname }}</a>
+                        <a href="/schueler/read/{{ schueler.id }}">{{ schueler.vorname ~ ' ' ~ schueler.nachname }}</a>
                 </div>
         </li>
     {% endfor %}
@@ -11,3 +11,6 @@
 
 <h2>Operations</h2>
 <button type="button" onclick="window.location.href='/schueler/create';">Create</button>
+
+<h2>Back to home</h2>
+<button type="button" onclick="window.location.href='/';">Back to Home</button>
