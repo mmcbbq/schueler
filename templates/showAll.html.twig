@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Alle Schüler
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <ul>
+  {% for schueler in schuelers %}
+    {% if schueler.vorname == 'Erik' %}
+      <li class="green marge">hey {{ schueler.nachname }}, {{ schueler.vorname }}</li>
+    {% else %}
+      <li class="boo marge">{{ schueler.nachname }}, {{ schueler.vorname }}</li>
+    {% endif %}
+    <li>{{ schueler.telefonNummer }}</li>
+    <li>{{ schueler.email }}</li>
+    <li>{{ schueler.kommentar }}</li>
+   <li><a class="btn-detail" href="{{ path('show', {'id': schueler.id}) }}">view details</a></li>
+  {% endfor %}
+  </ul>
+</div>
+  {% endblock %}
+
+

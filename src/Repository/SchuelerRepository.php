@@ -22,7 +22,7 @@ class SchuelerRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return SchuelerController[] Returns an array of SchuelerController objects
+//     * @return Schueler[] Returns an array of Schueler objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class SchuelerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SchuelerController
+//    public function findOneBySomeField($value): ?Schueler
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

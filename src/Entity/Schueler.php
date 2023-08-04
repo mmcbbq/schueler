@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\SchuelerRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SchuelerRepository::class)]
@@ -14,49 +13,58 @@ class Schueler
     #[ORM\Column]
     private ?int $id = null;
 
-
+    #[ORM\Column(length: 255)]
+    private ?string $vorname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nachname = null;
+    private ?string $nachname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $TelefonNummer = null;
+    private ?string $telefonnummer = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $kommentar = null;
-
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-
-    public function getNachname(): ?string
+    public function getVorname(): ?string
     {
-        return $this->Nachname;
+        return $this->vorname;
     }
 
-    public function setNachname(string $Nachname): static
+    public function setVorname(string $vorname): static
     {
-        $this->Nachname = $Nachname;
+        $this->vorname = $vorname;
 
         return $this;
     }
 
-    public function getTelefonNummer(): ?string
+    public function getNachname(): ?string
     {
-        return $this->TelefonNummer;
+        return $this->nachname;
     }
 
-    public function setTelefonNummer(string $TelefonNummer): static
+    public function setNachname(string $nachname): static
     {
-        $this->TelefonNummer = $TelefonNummer;
+        $this->nachname = $nachname;
+
+        return $this;
+    }
+
+    public function getTelefonnummer(): ?string
+    {
+        return $this->telefonnummer;
+    }
+
+    public function setTelefonnummer(string $telefonnummer): static
+    {
+        $this->telefonnummer = $telefonnummer;
 
         return $this;
     }
@@ -84,6 +92,4 @@ class Schueler
 
         return $this;
     }
-
-
 }

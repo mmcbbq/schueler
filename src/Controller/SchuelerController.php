@@ -23,20 +23,30 @@ class SchuelerController extends AbstractController
   public function createSchueler(EntityManagerInterface $entityManager):Response
   {
     $schueler = new Schueler();
-    $schueler->setNachname('grobi');
-    $schueler->setTelefonNummer('64833');
-    $schueler->setEmail('g@r.org');
-    $schueler->setKommentar('sesamstrasse');
+    $schueler->setVorname('Bibo');
+    $schueler->setNachname('Bird');
+    $schueler->setTelefonNummer('35744833');
+    $schueler->setEmail('B@bird.live');
+    $schueler->setKommentar('Sesamschule');
     $entityManager->persist($schueler);
     $entityManager->flush();
     return new Response('schueler created');
   }
 
   //info READ
-  #[Route('/show/{id}')]
+  #[Route('/show/{id}', name: 'show')]
   public function show(Schueler $schueler, EntityManagerInterface $em):Response
   {
     return $this->render('schueler/show.html.twig', ['name' => $schueler]);
+  }
+
+  #[Route('/showAll')]
+  public function showAll(EntityManagerInterface $em):Response
+  {
+    $repo = $em->getRepository(Schueler::class);
+    $schueler = $repo->findAll();
+//    $schueler = ['grobi', 'bibo', 'erik', 'samson', 'ernie', 'bert'];
+   return $this->render('showAll.html.twig', ['schuelers' => $schueler]);
   }
 
   //info UPDATE

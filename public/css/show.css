@@ -1,0 +1,52 @@
+:root {
+    --primary-bg: #444444;
+    --primary-font: #dedede;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--primary-font);
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.green {
+    color: greenyellow;
+}
+
+.boo {
+    color: saddlebrown;
+}
+
+.marge {
+    margin-top: 1rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.btn-detail {
+    margin-top: 2rem;
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 3rem;
+    color: #dddeed;
+    background: cadetblue;
+}
