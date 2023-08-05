@@ -1,4 +1,21 @@
+{#{% for schueler in Schuelers %}
+<a href="/show/{{  schueler.id }}">{{ schueler.nachname }}</a><br>
+{{ schueler.telefonNummer }}
+{{ schueler.email }}
+    <br>
+{% endfor %}#}
+<table><tr><th>Name</th><th>Nachname</th><th>EMail</th><th>Telefonnummer</th><th>Kommentar</th><th>Aktion</th></tr>
+    <tbody>
 {% for schueler in Schuelers %}
-{{ schueler }}
+    <tr>
+        <td>{{ schueler.vorname }}</td>
+        <td>{{ schueler.nachname }}</td>
+        <td>{{ schueler.email }}</td>
+        <td>{{ schueler.telefonNummer }}</td>
+        <td>{{ schueler.kommentar }}</td>
+        <td><a href="/delete/{{  schueler.id }}">delete</a> <a href="/show/{{  schueler.id }}">show details</a></td>
+    </tr>
 {% endfor %}
-
+    </tbody>
+</table>
+<a href="/createSchueler">Neuen Schüler anlegen</a>

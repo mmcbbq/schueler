@@ -28,6 +28,9 @@ class Schueler
     #[ORM\Column(type: Types::TEXT)]
     private ?string $kommentar = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $vorname = null;
+
 
 
     public function getId(): ?int
@@ -81,6 +84,18 @@ class Schueler
     public function setKommentar(string $kommentar): static
     {
         $this->kommentar = $kommentar;
+
+        return $this;
+    }
+
+    public function getVorname(): ?string
+    {
+        return $this->vorname;
+    }
+
+    public function setVorname(?string $vorname): static
+    {
+        $this->vorname = $vorname;
 
         return $this;
     }
