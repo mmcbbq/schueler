@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 use App\Entity\Schueler;
+use App\Form\SchuelerFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,20 +27,32 @@ class SchuelerController extends AbstractController
 //    }
 
 
-    #[Route('/createschueler')]
-    public function createschueler (EntityManagerInterface $entityManager) :Response
+    #[Route('/createschueler', name: 'create_schueler')]
+    public function createschueler (Request $request, EntityManagerInterface $entityManager) :Response
     {
-        $neuerSchueler = new Schueler();
-        $neuerSchueler->setNachname('Doe');
-        $neuerSchueler->setEmail('Doe@joe.de');
-        $neuerSchueler->setTelefonNummer('0123456');
-        $neuerSchueler->setKommentar('Ist ein Joe');
+        $schueler = new Schueler();
+        $form = $this->createForm(SchuelerFormType::class, $schueler);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newschueler = $form->getData();
+            $entityManager->persist($newschueler);
+            $entityManager->flush();
+            return $this->redirectToRoute('schueler_showall');
+        }
+        return $this->render('schueler/create.html.twig', [
+            'form'  => $form->createView()
+        ]);
+//        $neuerSchueler = new Schueler();
+//        $neuerSchueler->setNachname('Doe');
+//        $neuerSchueler->setEmail('Doe@joe.de');
+//        $neuerSchueler->setTelefonNummer('0123456');
+//        $neuerSchueler->setKommentar('Ist ein Joe');
+//
+//        $entityManager->persist($neuerSchueler);
+//        $entityManager->flush();
 
-        $entityManager->persist($neuerSchueler);
-        $entityManager->flush();
 
-
-        return new Response('Schüler '.$neuerSchueler->getNachname() .' hinzugefügt');
+//        return new Response('Schüler '.$neuerSchueler->getNachname() .' hinzugefügt');
 }
 
     #[Route('/show/{id}', name: 'schueler_show')]
@@ -62,13 +76,28 @@ class SchuelerController extends AbstractController
 
     }
 
-    #[Route('update/{id}')]
-    public function update(Schueler $schueler, EntityManagerInterface $entityManager)
+    #[Route('update/{id}', name:'schueler_update') ]
+    public function update(Request $request, Schueler $schueler, EntityManagerInterface $entityManager):Response
     {
-        $schueler->setNachname('karl');
+        $form = $this->createForm(SchuelerFormType::class, $schueler);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+        return $this->redirectToRoute('schueler_showall');
+        }
+
+
+//        $schueler->setNachname('karl');
+
+
+
+
         $entityManager->persist($schueler);
         $entityManager->flush();
-        return new Response('dein name ist jetzt' .$schueler->getNachname());
+        return $this->render('schueler/update.html.twig',[
+            'schueler' => $schueler,
+            'form'  => $form->createView()
+        ]);
 
     }
 

@@ -4,4 +4,5 @@
 
 {% block body %}
 <div>{{ schueler.nachname }}</div>
+    <a href="{{ path('schueler_update',{id:schueler.id}) }}">Edit</a>
 {% endblock %}

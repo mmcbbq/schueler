@@ -4,6 +4,7 @@
         {% for schueler in schuelers %}
 
             <a href="{{ path('schueler_show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
+
             <br>
 
         {% endfor %}
