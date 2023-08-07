@@ -12,14 +12,15 @@
     {% endblock %}
 </head>
 <body>
-<div class="container" style="border: 3px solid; ">
-    <div style="width: 40%; float: left; padding: 20px;">
-        <a href="{{ path('create_schueler')  }}">Create</a><br>
+<div class="container" >
+    <div >
+        <a href="{{ path('create_schueler')  }}">Create</a>
         <a href="{{ path ('schueler_showall') }}">Read</a><br>
-        <a href="">Update</a><br>
-        <a href="">Delete</a><br>
+
     </div>
+    <div>
     {% block body %}{% endblock %}
+    </div>
 </div>
 </body>
 </html>

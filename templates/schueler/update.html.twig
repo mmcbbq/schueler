@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_errors(form) }}
     {{ form_start(form) }}
-    {{ form_widget(form.Vorname) }}
     <br>
-    {{ form_widget(form.Nachname) }}
+    {{ form_row(form.Vorname, {'attr': {'style' : 'color:red'}}) }}
+    <br>
+    {{  form_label(form.Nachname, 'Nachname', {'label_attr': {'style' : 'color:red'}}) }}
+    {{ form_widget(form.Nachname, {'attr': {'style' : 'color:red'}}) }}
     {{ form_widget(form.TelefonNummer) }}
-    {{ form_widget(form.email)  }}
-    {{ form_widget(form.kommentar)  }}
-    {{ form_widget(form.save, { 'label': 'update me' }) }}
-    {{ form_end(form) }}
-{#    <button type="submit">#}
-{#        submit#}
-{#    </button>#}
+    {{ form_widget(form.email) }}
+    {{ form_widget(form.kommentar) }}
 
+
+
+
+    {{ form_widget(form.save, {'label': 'das ist ein neuer '})}}
+    {{  form_end(form) }}
 
 {% endblock %}
