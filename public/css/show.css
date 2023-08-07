@@ -10,30 +10,88 @@ h1{
 
 .navigation-header{
     height:70px;
-
-    border: 2px solid steelblue;
+    border-bottom: 2px solid steelblue;
     display:flex;
     justify-content: center;
 }
 
 .navigation-header nav{
-    width:500px;
+    width:250px;
     display:flex;
     /*border: 2px solid red;*/
     height:auto;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
+
 .navi{
 
-    /*border: 2px solid green;*/
-    /*margin-left: 20px;*/
 }
+
+.navigation-header nav a:link,.navigation-header nav a:visited {
+    color: steelblue;
+    text-decoration: none;
+    font-size:18px;
+
+}
+
+.navigation-header nav a:hover,.navigation-header nav a:active {
+    color: hotpink;
+}
+
+.schuelers{
+
+    width:300px;
+    margin:30px auto;
+}
+
 .schueler{
-    border:2px solid gray;
+    width:inherit;
+    padding:15px;
+    border:2px solid steelblue;
+    border-radius:10px;
     margin-bottom: 20px;
-    background-color: #e3e0e0;
+    background-color: #fbfdfe;
 }
+.schueler h1 a:link,.schueler h1 a:visited{
+    text-decoration: none;
+    color:steelblue;
+}
+.schueler h1 a:hover{
+    color: #0a5fa7;
+}
+.schueler-attribute{
+    margin-top: 10px;
+}
+.edit{
+    margin-top:20px;
+}
+.btn-del,.btn-update{
+
+    text-decoration:none;
+    padding:7px;
+    border-radius:5px;
+}
+.btn-del:link,.btn-del:visited{
+   background-color: #f45419;
+    color:#fff;
+}
+
+.btn-del:hover,.btn-del:active{
+    background-color: orangered;
+    color:#fff;
+}
+.btn-update:link,.btn-update:visited{
+    background-color: #4a95d2;
+    color:#fff;
+}
+
+.btn-update:hover,.btn-update:active{
+    background-color: #328ad2;
+    color:#fff;
+}
+
+
 .schueler-attribute{
     margin-bottom: 5px;
 }

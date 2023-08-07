@@ -78,22 +78,27 @@ class SchuelerController extends AbstractController
     }
 
     //UPDATE
-    #[Route('update/{id}')]
-    public function update(Schueler $schueler,EntityManagerInterface $entityManager){
+    #[Route('update/{id}',name:'updateSchueler')]
+    public function update(Request $request,Schueler $schueler,EntityManagerInterface $entityManager){
 
         $form=$this->createForm(SchuelerFormType::class,$schueler);
-        return $this->render('schueler/update.html.twig',['form'=>$form->createView()]);
-//        $schueler->setNachname('otto');
-//        $entityManager->persist($schueler);
-//        $entityManager->flush();//flush ist wie excute und führt aus
-//        return new Response('name ist jetzt: '.$schueler->getNachname());
-
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $schueler=$form->getData();
+            $entityManager->persist($schueler); //persist erzählt der doctrine kümmer dich mal drum
+            $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
+            return $this->redirectToRoute('showAllSchueler');
+        }
+        return $this->render('schueler/update.html.twig',['schueler'=>$schueler,'form'=>$form->createView()]);
     }
-    #[Route('delete/{id}')]
+
+    #[Route('delete/{id}',name:'deleteSchueler')]
     public function delete(Schueler $schueler,EntityManagerInterface $entityManager):Response{
         $entityManager->remove($schueler);
         $entityManager->flush();
-        return new Response('ist gelöscht');
+        $repository=$entityManager->getRepository(Schueler::class);
+        $schuelers=$repository->findAll();
+        return $this->render('schueler/showall.html.twig',['schuelers'=>$schuelers]);
     }
 
 

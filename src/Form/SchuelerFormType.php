@@ -13,11 +13,11 @@ class SchuelerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('Vorname')
             ->add('Nachname')
             ->add('TelefonNummer')
             ->add('email')
             ->add('kommentar')
-            ->add('Vorname')
             ->add('save',SubmitType::class,['label'=>'Crate Schueler'])
         ;
     }

@@ -2,13 +2,23 @@
 
    {% block body %}
        {{ parent() }}
+       <div class="schuelers">
        {% for schueler in schuelers %}
            {# <div class="schueler"><h1><a href="/show/{{schueler.id}}">Schueler_ID: {{schueler.id}}</a></h1> #}
-           <div class="schueler"><h1><a href="{{ path('showSchueler', {id: schueler.id}) }}">Schueler_ID:{{ schueler.id }}</a></h1>
+
+           <div class="schueler">
+               <h1><a href="{{ path('showSchueler', {id: schueler.id}) }}">Schueler_ID:{{ schueler.id }}</a></h1>
+               <div class="schueler-attribute"><span>Vorname: </span>{{ schueler.vorname }}</div>
                <div class="schueler-attribute"><span>Name: </span>{{ schueler.nachname }}</div>
                <div class="schueler-attribute"><span>Email: </span>{{ schueler.email }}</div>
                <div class="schueler-attribute"><span>Telefon: </span>{{ schueler.telefonnummer }}</div>
                <div class="schueler-attribute"><span>Kommentar: </span>{{ schueler.kommentar }}</div>
+
+           <div  class="edit">
+               <a class="btn-del" href="{{path('deleteSchueler',{id:schueler.id})}}">Delete</a>
+               <a class="btn-update" href="{{path('updateSchueler',{id:schueler.id})}}">Update</a>
+           </div>
            </div>
        {% endfor %}
+       </div>
    {% endblock %}
