@@ -4,10 +4,11 @@ namespace App\Controller;
 
 
 use App\Entity\Schueler;
+use App\Form\SchuelerFormType;
 use App\Repository\SchuelerRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,29 +23,28 @@ class SchuelerController extends AbstractController
     }
 
     #[Route('schueler/{fn}/{id?}')]
-    public function manage($fn, $id = null, EntityManagerInterface $em, SchuelerRepository $schuelerRepository)
+    public function manage($fn, $id = null, EntityManagerInterface $em, SchuelerRepository $schuelerRepository, Request $request)
     {
         switch ($fn) {
             case 'create':
-                // still static. $data needs to get value from somewhere
-                $data = [
-                    'vorname' => 'Karl',
-                    'nachname' =>'Karlenson',
-                    'email' => 'aaa@aaa.aaa',
-                    'telefonNummer' => '0123456789',
-                    'kommentar' => 'Cooler Typ'
-                ];
-                $schueler = $this->create($data);
-                $em->persist($schueler);
-                $em->flush();
-                return $this->show($schueler);
+                $form = $this->create($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $schueler = $form->getData();
+                    $em->persist($schueler);
+                    $em->flush();
+                    return $this->redirectToRoute('readAllSchueler');
+                }
+                return $this->render(
+                    'schueler/create.html.twig', [
+                    'form' => $form->createView()
+                ]);
 
             case 'read':
                 if ($id === 'all') {
-                    return $this->showAll($em);
+                    return $this->readAll($em);
                 } else {
                     $schueler = $schuelerRepository->find($id);
-                    return $schueler ? $this->show($schueler) : $this->schuelerNotFound();
+                    return $schueler ? $this->read($schueler) : $this->schuelerNotFound();
                 }
 
             case 'update':
@@ -58,15 +58,17 @@ class SchuelerController extends AbstractController
                 $em->persist($schueler);
                 $em->flush();
 
-                return $this->show($schueler);
+                return $this->read($schueler);
 
             case 'delete':
                 $schueler = $schuelerRepository->find($id);
-                $this->checkIfExists($schueler);
+                if (!$schueler) {
+                    return new Response('Schueler not found');
+                }
                 $em->remove($schueler);
                 $em->flush();
 
-                return $this->showAll($em);
+                return $this->readAll($em);
 
             default:
                 return new Response('Invalid operation');
@@ -74,26 +76,26 @@ class SchuelerController extends AbstractController
     }
 
 
-        #[Route('schueler/show/{id}')]
-    private function show(Schueler $schueler) :Response
+    #[Route('schueler/read/{id}')]
+    private function read(Schueler $schueler): Response
     {
-        return $this->render('schueler/show.html.twig', [
+        return $this->render('schueler/read.html.twig', [
             'schueler' => $schueler
         ]);
     }
 
-        #[Route('schueler/show/all')]
-    private function showAll(EntityManagerInterface $em): Response
+    #[Route('schueler/read/all', name: 'readAllSchueler')]
+    private function readAll(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(Schueler::class);
         $schuelers = $repository->findAll();
-        return $this->render('schueler/showall.html.twig', [
+        return $this->render('schueler/readall.html.twig', [
             'schuelers' => $schuelers
         ]);
     }
 
     // will need this when it will be dynamic
-        #[Route('schueler/update/{id}')]
+    #[Route('schueler/update/{id}')]
     private function update(Schueler $schueler, array $data)
     {
         foreach ($data as $attribute => $value) {
@@ -105,17 +107,14 @@ class SchuelerController extends AbstractController
     }
 
     // will need this when it will be dynamic
-        #[Route('schueler/create')]
-    private function create(array $data): Schueler
+    #[Route('schueler/create')]
+    public function create($request)
     {
         $schueler = new Schueler();
-        foreach ($data as $attribute => $value) {
-            //loop to every assignable key
-            $setter = 'set' . ucfirst($attribute);
-            //call setter method
-            $schueler->$setter($value);
-        }
-        return $schueler;
+        $form = $this->createForm(SchuelerFormType::class, $schueler);
+        $form->handleRequest($request);
+
+        return $form;
     }
 
 
