@@ -2,6 +2,16 @@
 
 {% block body %}
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.Vorname) }}
+    {{ form_row(form.Nachname) }}
+    {{ form_row(form.TelefonNummer) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.kommentar) }}
+
+
+
+    {{ form_widget(form.save, {'label': 'Create Schueler'}) }}
+    {{ form_end(form) }}
 
 {% endblock body %}

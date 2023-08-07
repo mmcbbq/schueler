@@ -18,7 +18,7 @@ class SchuelerFormType extends AbstractType
             ->add('TelefonNummer')
             ->add('email')
             ->add('kommentar')
-            ->add('save', SubmitType::class, ['label' => 'Create Schueler'])
+            ->add('save', SubmitType::class)
         ;
     }
 

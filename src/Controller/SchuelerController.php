@@ -8,6 +8,7 @@ use App\Form\SchuelerFormType;
 use App\Repository\SchuelerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,18 +28,8 @@ class SchuelerController extends AbstractController
     {
         switch ($fn) {
             case 'create':
-                $form = $this->create($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $schueler = $form->getData();
-                    $em->persist($schueler);
-                    $em->flush();
-                    return $this->redirectToRoute('readAllSchueler');
-                }
-                return $this->render(
-                    'schueler/create.html.twig', [
-                    'form' => $form->createView()
-                ]);
-
+                $schueler = new Schueler();
+                return $this->createAndHandleForm($schueler,$request,$em, $fn);
             case 'read':
                 if ($id === 'all') {
                     return $this->readAll($em);
@@ -47,7 +38,7 @@ class SchuelerController extends AbstractController
                     if (!$schueler) {
                         return new Response('Schueler not found');
                     }
-                    $this->read($schueler);
+                    return $this->read($schueler);
                 }
 
             case 'update':
@@ -55,7 +46,7 @@ class SchuelerController extends AbstractController
                 if (!$schueler) {
                     return new Response('Schueler not found');
                 }
-                return $this->update($schueler);
+                return $this->createAndHandleForm($schueler,$request,$em, $fn);
 
             case 'delete':
                 $schueler = $schuelerRepository->find($id);
@@ -64,7 +55,6 @@ class SchuelerController extends AbstractController
                 }
                 $em->remove($schueler);
                 $em->flush();
-
                 return $this->readAll($em);
 
             default:
@@ -91,24 +81,38 @@ class SchuelerController extends AbstractController
         ]);
     }
 
-    // will need this when it will be dynamic
-    #[Route('schueler/update/{id}')]
-    private function update(Schueler $schueler)
+    private function createAndHandleForm($schueler, $request, $em, $fn)
     {
-        $form=$this->createForm(SchuelerFormType::class,$schueler);
-        return $this->render('schueler/update.html.twig',['form'=>$form->createView()]);
-    }
-
-    // will need this when it will be dynamic
-    #[Route('schueler/create')]
-    public function create($request)
-    {
-        $schueler = new Schueler();
         $form = $this->createForm(SchuelerFormType::class, $schueler);
         $form->handleRequest($request);
-
-        return $form;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($schueler);
+            $em->flush();
+            return $this->redirectToRoute('readAllSchueler');
+        }
+        return $this->render(
+            'schueler/'.$fn.'.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
+
+
+//    #[Route('schueler/update/{id}')]
+//    private function update(Schueler $schueler, $request)
+//    {
+//        $form = $this->createForm(SchuelerFormType::class,$schueler);
+//        $form->handleRequest($request);
+//        return $form;
+//    }
+//
+//    // will need this when it will be dynamic
+//    #[Route('schueler/create')]
+//    public function create(Schueler $schueler, $request)
+//    {
+//        $form = $this->createForm(SchuelerFormType::class, $schueler);
+//        $form->handleRequest($request);
+//        return $form;
+//    }
 
 
 //    #[Route('/schueler/create')]
