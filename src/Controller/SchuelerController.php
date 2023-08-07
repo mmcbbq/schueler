@@ -21,25 +21,6 @@ class SchuelerController extends AbstractController
         return $this->render('schueler/home.html.twig');
     }
 
-//    #[Route('schueler/show/{id}')]
-    private function show(Schueler $schueler) :Response
-    {
-        return $this->render('schueler/show.html.twig', [
-            'schueler' => $schueler
-        ]);
-    }
-
-
-//    #[Route('schueler/show/all')]
-    private function showAll(EntityManagerInterface $em): Response
-    {
-        $repository = $em->getRepository(Schueler::class);
-        $schuelers = $repository->findAll();
-        return $this->render('schueler/showall.html.twig', [
-            'schuelers' => $schuelers
-        ]);
-    }
-
     #[Route('schueler/{fn}/{id?}')]
     public function manage($fn, $id = null, EntityManagerInterface $em, SchuelerRepository $schuelerRepository)
     {
@@ -53,28 +34,21 @@ class SchuelerController extends AbstractController
                     'telefonNummer' => '0123456789',
                     'kommentar' => 'Cooler Typ'
                 ];
-
                 $schueler = $this->create($data);
                 $em->persist($schueler);
                 $em->flush();
-
                 return $this->show($schueler);
 
             case 'read':
-                if ($id === 'all'){
+                if ($id === 'all') {
                     return $this->showAll($em);
                 } else {
                     $schueler = $schuelerRepository->find($id);
-
-                    if (!$schueler) {
-                        return new Response('Schueler not found');
-                    }
-
-                    return $this->show($schueler);
+                    return $schueler ? $this->show($schueler) : $this->schuelerNotFound();
                 }
+
             case 'update':
                 $schueler = $schuelerRepository->find($id);
-
                 if (!$schueler) {
                     return new Response('Schueler not found');
                 }
@@ -88,10 +62,7 @@ class SchuelerController extends AbstractController
 
             case 'delete':
                 $schueler = $schuelerRepository->find($id);
-                if (!$schueler) {
-                    return new Response('Schueler not found');
-                }
-
+                $this->checkIfExists($schueler);
                 $em->remove($schueler);
                 $em->flush();
 
@@ -102,7 +73,27 @@ class SchuelerController extends AbstractController
         }
     }
 
+
+        #[Route('schueler/show/{id}')]
+    private function show(Schueler $schueler) :Response
+    {
+        return $this->render('schueler/show.html.twig', [
+            'schueler' => $schueler
+        ]);
+    }
+
+        #[Route('schueler/show/all')]
+    private function showAll(EntityManagerInterface $em): Response
+    {
+        $repository = $em->getRepository(Schueler::class);
+        $schuelers = $repository->findAll();
+        return $this->render('schueler/showall.html.twig', [
+            'schuelers' => $schuelers
+        ]);
+    }
+
     // will need this when it will be dynamic
+        #[Route('schueler/update/{id}')]
     private function update(Schueler $schueler, array $data)
     {
         foreach ($data as $attribute => $value) {
@@ -114,6 +105,7 @@ class SchuelerController extends AbstractController
     }
 
     // will need this when it will be dynamic
+        #[Route('schueler/create')]
     private function create(array $data): Schueler
     {
         $schueler = new Schueler();
@@ -125,6 +117,7 @@ class SchuelerController extends AbstractController
         }
         return $schueler;
     }
+
 
 //    #[Route('/schueler/create')]
 //    public function create(EntityManagerInterface $em): Response
