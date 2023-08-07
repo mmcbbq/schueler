@@ -5,8 +5,10 @@ namespace App\Controller;
 
 
 use App\Entity\Schueler;
+use App\Form\SchuelerFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,19 +34,30 @@ class SchuelerController extends AbstractController
 
 //CREATE
     #[Route('/create',name:'createSchueler' )]
-    public function createSchueler(EntityManagerInterface $entityManager):Response{
+    public function createSchueler(Request $request, EntityManagerInterface $entityManager):Response{
         //$entityManager-ist dafür verantwortlich das objekte aus der Datenbank gespeichert und rausgelsene werden.
         $neuerSchueler=new Schueler();
-        $neuerSchueler->setVorname('Oliver');
-        $neuerSchueler->setNachname('Winterfeld');
-        $neuerSchueler->setEmail('o.winterfeld@gmx.de');
-        $neuerSchueler->setTelefonNummer('5555888989');
-        $neuerSchueler->setKommentar('uuuuahhhh');
-        //dd($neuerSchueler);//dump and die beendet und gibt  das object aus
-        $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
-        $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
-        return $this->render('schueler/create.html.twig', ['schuelername'=>$neuerSchueler->getNachname()]);
-//        return new Response($neuerSchueler->getNachname());
+        $form=$this->createForm(SchuelerFormType::class,$neuerSchueler);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $neuerSchueler=$form->getData();
+            $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
+            $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
+            return $this->redirectToRoute('showAllSchueler');
+        }
+        return $this->render('schueler/create.html.twig',['form'=>$form->createView()]);
+
+
+//        $neuerSchueler->setVorname('Oliver');
+//        $neuerSchueler->setNachname('Winterfeld');
+//        $neuerSchueler->setEmail('o.winterfeld@gmx.de');
+//        $neuerSchueler->setTelefonNummer('5555888989');
+//        $neuerSchueler->setKommentar('uuuuahhhh');
+//        //dd($neuerSchueler);//dump and die beendet und gibt  das object aus
+//        $entityManager->persist($neuerSchueler); //persist erzählt der doctrine kümmer dich mal drum
+//        $entityManager->flush(); //doctrine schaut nach allen Objekten die persist hinzugefügt hat und  fügt das Objekt in die Tabelle hinzu
+//        return $this->render('schueler/create.html.twig', ['schuelername'=>$neuerSchueler->getNachname()]);
+// //       return new Response($neuerSchueler->getNachname());
     }
 
     #[Route('/showall')]

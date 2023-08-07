@@ -18,10 +18,16 @@
 <body>
 
 {% block body %}
-    <a class="navi" href="{{ path('createSchueler') }}">Create</a>
-    <a class="navi" href="{{ path('showAllSchueler') }}">ReadAll</a>
-    <a class="navi" href="">Delete</a>
-    <a class="navi" href="">Update</a>
+    <div class="navigation-header">
+        <nav>
+            <a class="navi" href="{{ path('createSchueler') }}">Create</a>
+            <a class="navi" href="{{ path('showAllSchueler') }}">ReadAll</a>
+            <a class="navi" href="">Delete</a>
+            <a class="navi" href="">Update</a>
+        </nav>
+
+    </div>
+
 {% endblock %}
 </body>
 </html>
