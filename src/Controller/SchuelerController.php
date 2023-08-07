@@ -44,7 +44,10 @@ class SchuelerController extends AbstractController
                     return $this->readAll($em);
                 } else {
                     $schueler = $schuelerRepository->find($id);
-                    return $schueler ? $this->read($schueler) : $this->schuelerNotFound();
+                    if (!$schueler) {
+                        return new Response('Schueler not found');
+                    }
+                    $this->read($schueler);
                 }
 
             case 'update':
@@ -52,13 +55,7 @@ class SchuelerController extends AbstractController
                 if (!$schueler) {
                     return new Response('Schueler not found');
                 }
-                // still static. $data needs to get value from somewhere
-                $data = ['vorname' => 'Yooooo'];
-                $this->update($schueler, $data);
-                $em->persist($schueler);
-                $em->flush();
-
-                return $this->read($schueler);
+                return $this->update($schueler);
 
             case 'delete':
                 $schueler = $schuelerRepository->find($id);
@@ -96,14 +93,10 @@ class SchuelerController extends AbstractController
 
     // will need this when it will be dynamic
     #[Route('schueler/update/{id}')]
-    private function update(Schueler $schueler, array $data)
+    private function update(Schueler $schueler)
     {
-        foreach ($data as $attribute => $value) {
-            //if the attribute is "nachname", the generated setter method name will be "setNachname".
-            $setter = 'set' . ucfirst($attribute);
-            //call setter method
-            $schueler->$setter($value);
-        }
+        $form=$this->createForm(SchuelerFormType::class,$schueler);
+        return $this->render('schueler/update.html.twig',['form'=>$form->createView()]);
     }
 
     // will need this when it will be dynamic
