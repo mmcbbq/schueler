@@ -12,10 +12,8 @@
 </head>
 <body>
   <ul class="nav">
+    <li><a class="btn" href="{{ path('create_schueler') }}">create</a></li>
     <li><a class="btn" href="{{ path('showAll') }}">show all</a></li>
-    <li><a class="btn" href="{{ path('create2') }}">create</a></li>
-    <li><a class="btn" href="{{ path('update2') }}">update</a></li>
-    <li><a class="btn" href="{{ path('show2') }}">show</a></li>
   </ul>
     {% block body %}{% endblock %}
 </body>

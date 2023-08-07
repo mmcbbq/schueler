@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Dancing+Script&display=swap');
 :root {
-    --primary-bg: #444444;
+    --primary-bg: #666666;
     --primary-font: #dedede;
 }
 
@@ -16,14 +17,52 @@
 body {
     background-color: var(--primary-bg);
     color: var(--primary-font);
+    font-family: 'Dancing Script', sans-serif;
 }
 
 .container {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.schueler-container,
+.details-container {
+    margin-top: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.details-container {
+    margin-top: 7rem;
+}
+
+.form-container {
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.schueler {
+    background: #00008b44;
+    padding: 0 .4rem;
+    border: 1px solid #aaa;
+    margin-top: .3rem;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .2rem;
+    background: #444;
 }
 
 .green {
@@ -31,7 +70,7 @@ body {
 }
 
 .boo {
-    color: saddlebrown;
+    color: #fadeba;
 }
 
 .marge {
@@ -40,12 +79,13 @@ body {
 
 ul {
     list-style-type: none;
+    text-align: center;
 }
 
 .btn {
     text-decoration: none;
     margin-top: .5rem;
-    padding: .2rem .5rem;
+    /*padding: .2rem .5rem 0;*/
     border: none;
     border-radius: 3rem;
     color: #dddeed;
@@ -55,8 +95,29 @@ ul {
     background: cadetblue;
 }
 
+
 .btn-delete {
     background: red;
+    font-size: 1.4rem;
+}
+
+.delete-x , .edit, .view{
+    text-decoration: none;
+    font-size: 2rem;
+    color: red;
+    font-weight: bold;
+    margin: 0 1rem;
+}
+
+.edit {
+    color: lightblue;
+    font-size: 1.2rem;
+    webkit-transform: rotate(-45deg);
+}
+
+.view {
+    color: lightgreen;
+    font-size: 1.3rem;
 }
 
 .btn:hover {
@@ -72,4 +133,59 @@ ul {
     background: #555;
     padding: 1rem;
     border-bottom: 1px solid #fadeba;
+}
+
+input[type="text"], textarea {
+
+    font-family: inherit;
+    font-size: 1.2rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    color: #ddd;
+}
+
+textarea {
+    font-family: inherit;
+    background: #666;
+}
+
+#schueler_form {
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    font-family: inherit;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.update-label {
+    margin-top: .3rem;
+}
+
+#schueler_form div {
+    margin-top: .5rem;
+}
+
+button {
+    font-family: inherit;
+    background: saddlebrown;
+    color: #ddd;
+    font-size: 1.2rem;
+    /*line-height: 45px;*/
+    padding: .5rem .3rem 0 .3rem;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.tel {
+    color: #43ffe4;
 }

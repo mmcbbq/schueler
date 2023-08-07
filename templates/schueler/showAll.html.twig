@@ -3,22 +3,33 @@
   Alle Schüler
 {% endblock %}
 {% block body %}
-<div class="container">
-  {% for schueler in schuelers %}
-  <ul>
-    {% if schueler.vorname == 'Erik' %}
-      <li class="green marge">hey {{ schueler.nachname }}, {{ schueler.vorname }}</li>
-    {% else %}
-      <li class="boo marge">{{ schueler.nachname }}, {{ schueler.vorname }}</li>
-    {% endif %}
-    <li>{{ schueler.telefonNummer }}</li>
-    <li>{{ schueler.email }}</li>
-    <li>{{ schueler.kommentar }}</li>
-  </ul>
-   <a class="btn btn-detail" href="{{ path('show', {'id': schueler.id}) }}">view details</a>
-   <a class="btn btn-delete" href="{{ path('delete', {'id': schueler.id}) }}">delete</a>
-  {% endfor %}
-</div>
-  {% endblock %}
+  <div class="container">
+      <div class="schueler-container">
+    {% for schueler in schuelers %}
+        <div class="schueler">
+          <ul>
+            {% if schueler.vorname == 'Erik' %}
+              <li class="green marge">hey {{ schueler.nachname }}, {{ schueler.vorname }}</li>
+            {% else %}
+              <li class="boo marge">{{ schueler.nachname }}, {{ schueler.vorname }}</li>
+            {% endif %}
+            <li>{{ schueler.telefonNummer }}</li>
+            <li>{{ schueler.email|length > 20 ?
+              schueler.email|u.truncate(20)~'...':
+              schueler.email }}</li>
+            <li>{{ schueler.kommentar|length > 20 ?
+              schueler.kommentar|u.truncate(20)~'...':
+              schueler.kommentar }}</li>
+          </ul>
+          <div class="buttons">
+            <a class="view" href="{{ path('show', {'id': schueler.id}) }}">&#128065;</a>
+            <a class="edit" href="{{ path('schueler_update', {id: schueler.id}) }}">&#10001;</a>
+            <a class="delete-x" href="{{ path('delete', {'id': schueler.id}) }}">&times;</a>
+          </div>
+        </div>
+    {% endfor %}
+      </div>
+  </div>
+{% endblock %}
 
 

@@ -3,8 +3,10 @@
 {% block title %}Schueler{% endblock %}
 {% block body %}
   <div class="container">
-    <h1>Hallo {{ name.nachname }}y, schön dich zu sehen!</h1>
-    <h3>stimmt deine Telefonnummer noch? Ich hab die {{ name.telefonNummer }} von dir.</h3>
-    <h3>Du hast die Email: {{ name.email }}</h3>
+    <div class="details-container">
+      <h1>Hallo {{ name.nachname }}, schön dich zu sehen!</h1>
+      <h3>stimmt deine Telefonnummer noch? Ich hab die <span class="tel">{{ name.telefonNummer }}</span> von dir.</h3>
+      <h3>Du hast die Email: <span class="tel">{{ name.email }}</span></h3>
+    </div>
   </div>
 {% endblock %}

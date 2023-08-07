@@ -1,12 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<div class="container">
-  <h1>UPDATE</h1>
-</div>
-{% endblock %}
+{% block title %} Schueler ändern {% endblock %}
 
-{% block title %}
-Update
+{% block body %}
+  <div class="container">
+    <div class="form-container">
+      {{ form_start(form) }}
+      <div class="update-label">
+        {{ form_label(form.vorname) }}<br>
+        {{ form_widget(form.vorname) }}
+      </div>
+      <div class="update-label">
+        {{ form_label(form.nachname) }}<br>
+        {{ form_widget(form.nachname) }}
+      </div>
+      <div class="update-label">
+        {{ form_label(form.telefonnummer) }}<br>
+        {{ form_widget(form.telefonnummer) }}
+      </div>
+      <div class="update-label">
+        {{ form_label(form.email) }}<br>
+        {{ form_widget(form.email) }}
+      </div>
+      <div class="update-label">
+        {{ form_label(form.kommentar) }}<br>
+        {{ form_widget(form.kommentar) }}<br>
+      </div>
+      <div class="update-label">
+        {{ form_widget(form.save, {'label': 'Schüler ändern'}) }}
+      </div>
+      <div>
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
