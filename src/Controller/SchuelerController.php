@@ -81,10 +81,12 @@ class SchuelerController extends AbstractController
     #[Route('update/{id}')]
     public function update(Schueler $schueler,EntityManagerInterface $entityManager){
 
-        $schueler->setNachname('otto');
-        $entityManager->persist($schueler);
-        $entityManager->flush();//flush ist wie excute und führt aus
-        return new Response('name ist jetzt: '.$schueler->getNachname());
+        $form=$this->createForm(SchuelerFormType::class,$schueler);
+        return $this->render('schueler/update.html.twig',['form'=>$form->createView()]);
+//        $schueler->setNachname('otto');
+//        $entityManager->persist($schueler);
+//        $entityManager->flush();//flush ist wie excute und führt aus
+//        return new Response('name ist jetzt: '.$schueler->getNachname());
 
     }
     #[Route('delete/{id}')]

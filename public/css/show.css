@@ -10,17 +10,24 @@ h1{
 
 .navigation-header{
     height:70px;
+
     border: 2px solid steelblue;
     display:flex;
     justify-content: center;
 }
 
 .navigation-header nav{
-    display:inline-block;
-    border: 2px solid steelblue;
+    width:500px;
+    display:flex;
+    /*border: 2px solid red;*/
+    height:auto;
+    align-items: center;
+    justify-content: space-between;
 }
 .navi{
 
+    /*border: 2px solid green;*/
+    /*margin-left: 20px;*/
 }
 .schueler{
     border:2px solid gray;
