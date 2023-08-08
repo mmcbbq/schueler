@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Controller\SchuelerController;
 use App\Entity\Schueler;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -44,5 +45,25 @@ class SchuelerRepository extends ServiceEntityRepository
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;
+    public function findbyfachrichtung($value): array
+    {
+        $queryBuilder = $this->createQueryBuilder('v')
+            ->orderBy('v.Nachname');
+
+        if ($value) {
+            $queryBuilder->andWhere('v.fachrichtung = :val')
+                ->setParameter('val', $value);
+        }
+
+
+//         ->andWhere('v.fachrichtung = :val' )
+//         ->setParameter('val', $value)
+
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
 //    }
 }

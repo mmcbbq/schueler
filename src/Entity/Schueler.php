@@ -31,6 +31,9 @@ class Schueler
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Vorname = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fachrichtung = null;
+
 
 
     public function getId(): ?int
@@ -96,6 +99,18 @@ class Schueler
     public function setVorname(?string $Vorname): static
     {
         $this->Vorname = $Vorname;
+
+        return $this;
+    }
+
+    public function getFachrichtung(): ?string
+    {
+        return $this->fachrichtung;
+    }
+
+    public function setFachrichtung(?string $fachrichtung): static
+    {
+        $this->fachrichtung = $fachrichtung;
 
         return $this;
     }

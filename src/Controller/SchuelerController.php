@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Schueler;
 use App\Form\SchuelerFormType;
+use App\Repository\SchuelerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,10 @@ class SchuelerController extends AbstractController
     #[Route('/')]
     public function schueler() :Response
     {
-        return new Response('Hallo Welt');
+        $fachrichtung=array('Anwendungsentwickler', 'Systemintegration');
+//        dd($fachrichtung);
+
+        return new Response($fachrichtung[array_rand($fachrichtung)]);
     }
 
 //    #[Route('/show/{id}')]
@@ -64,12 +68,14 @@ class SchuelerController extends AbstractController
             'schueler'=> $schueler
         ]);
     }
-    #[Route('/showall', name: 'schueler_showall')]
-    public function showall(EntityManagerInterface $entityManager):Response
+    #[Route('/showall/{fach}', name: 'schueler_showall')]
+    public function showall(SchuelerRepository $repository, string $fach = null):Response
     {
-        $rep = $entityManager->getRepository(Schueler::class);
-        $schueler = $rep->findAll();
+//        $rep = $entityManager->getRepository(Schueler::class);
+//        $schueler = $rep->findAll();
 //        $schueler=['Erik','Petra','Simon','Maik'];
+        $schueler = $repository->findbyfachrichtung($fach);
+
 
         return $this->render('schueler/showall.html.twig',['schuelers'=> $schueler
             ]);
