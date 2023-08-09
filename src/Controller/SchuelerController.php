@@ -13,10 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class SchuelerController extends AbstractController
 {
     #[Route('/')]
-    public function schueler() :Response
+    public function schueler(SchuelerRepository $repository) :Response
     {
-        $fachrichtung=array('Anwendungsentwickler', 'Systemintegration');
-//        dd($fachrichtung);
+//        $fachrichtung=array('Anwendungsentwickler', 'Systemintegration');
+        $fachrichtung = $repository->findbyarray();
+        dd($fachrichtung);
 
         return new Response($fachrichtung[array_rand($fachrichtung)]);
     }

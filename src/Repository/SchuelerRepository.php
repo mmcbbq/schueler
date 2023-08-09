@@ -65,5 +65,11 @@ class SchuelerRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findbyarray()
+    {
+        $array= array ('fachrichtung'=>['Anwendungsentwicklung','Systemintegration']);
+        return $this->findBy($array);
+    }
+
 //    }
 }
