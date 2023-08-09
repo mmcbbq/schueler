@@ -8,6 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SchuelerController extends AbstractController
@@ -19,7 +21,7 @@ class SchuelerController extends AbstractController
         $fachrichtung = $repository->findbyarray();
         dd($fachrichtung);
 
-        return new Response($fachrichtung[array_rand($fachrichtung)]);
+        return new Response($fachrichtung);
     }
 
 //    #[Route('/show/{id}')]
@@ -109,6 +111,20 @@ class SchuelerController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('schueler_showall');
 
+        }
+#[Route('/email/{id}', name: 'email')]
+    public function sendmail(Schueler $schueler, MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('manuel@mail.mail')
+            ->subject('Praktikum')
+            ->to($schueler->getEmail())
+            ->text('Hier deine Praktikumsplätze');
+        $mailer->send($email);
+
+        return new Response('mailsend');
+
+//        return $this->redirectToRoute('schueler_showall');
         }
 
 }
