@@ -17,7 +17,7 @@ class SchuelerController extends AbstractController
     #[Route('/')]
     public function schueler(SchuelerRepository $repository) :Response
     {
-//        $fachrichtung=array('Anwendungsentwickler', 'Systemintegration');
+//        $fachrichtung=array('Anwend', 'Systemintegration');
         $fachrichtung = $repository->findbyarray();
         dd($fachrichtung);
 

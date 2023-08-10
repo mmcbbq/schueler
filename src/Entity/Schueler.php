@@ -31,8 +31,9 @@ class Schueler
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Vorname = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $fachrichtung = null;
+    #[ORM\ManyToOne(inversedBy: 'schuelers')]
+    private ?Fachrichtung $fachrichtung = null;
+
 
 
 
@@ -103,17 +104,19 @@ class Schueler
         return $this;
     }
 
-    public function getFachrichtung(): ?string
+    public function getFachrichtung(): ?Fachrichtung
     {
         return $this->fachrichtung;
     }
 
-    public function setFachrichtung(?string $fachrichtung): static
+    public function setFachrichtung(?Fachrichtung $fachrichtung): static
     {
         $this->fachrichtung = $fachrichtung;
 
         return $this;
     }
+
+
 
 
 }

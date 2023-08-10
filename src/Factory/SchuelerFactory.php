@@ -2,8 +2,11 @@
 
 namespace App\Factory;
 
+use App\Entity\Fachrichtung;
 use App\Entity\Schueler;
 use App\Repository\SchuelerRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -29,14 +32,17 @@ use Zenstruck\Foundry\RepositoryProxy;
  */
 final class SchuelerFactory extends ModelFactory
 {
+
+private $entityManger;
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
      * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
         parent::__construct();
+        $this->entityManger = $entityManager;
     }
 
     /**
@@ -46,7 +52,11 @@ final class SchuelerFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $fachrichtung= ['Anwendungsentwicklung', 'Systemintegration'];
+       $rep =  $this->entityManger->getRepository(Fachrichtung::class);
+       $fachrichtung = $rep->findAll();
+
+
+
 
 
 

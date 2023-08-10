@@ -23,7 +23,7 @@ class SchuelerFixtures extends Fixture
 //
 //        $manager->flush();
 
-        SchuelerFactory::new()->many(20)->create();
+//        SchuelerFactory::new()->many(20)->create();
 
 
     }
