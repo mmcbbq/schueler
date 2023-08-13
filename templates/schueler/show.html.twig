@@ -9,6 +9,14 @@
 <div>{{ schueler.email }}</div>
 <div>{{ schueler.kommentar }}</div>
     <div>{{ fachrichtung.bezeichnung }}</div>
+    <section>
+    <h1>Kurse</h1>
+    <ul>
+    {% for kurs in schueler.kurse %}
+        <li> {{ kurs.name }}</li>
+    {% endfor %}
+    </ul>
+    </section>
     <input type="button" onclick="window.location.href='{{ path('schueler_delete',{id:schueler.id}) }}';" value="Löschen" />
     <input type="button" onclick="window.location.href='{{ path('schueler_update',{id:schueler.id}) }}';" value="Change" />
 

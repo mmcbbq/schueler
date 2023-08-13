@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SchuelerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,14 @@ class Schueler
 
     #[ORM\ManyToOne(inversedBy: 'schuelers')]
     private ?Fachrichtung $fachrichtung = null;
+
+    #[ORM\ManyToMany(targetEntity: Kurs::class, inversedBy: 'schuelers')]
+    private Collection $kurse;
+
+    public function __construct()
+    {
+        $this->kurse = new ArrayCollection();
+    }
 
 
 
@@ -112,6 +122,30 @@ class Schueler
     public function setFachrichtung(?Fachrichtung $fachrichtung): static
     {
         $this->fachrichtung = $fachrichtung;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kurs>
+     */
+    public function getKurse(): Collection
+    {
+        return $this->kurse;
+    }
+
+    public function addKurse(Kurs $kurse): static
+    {
+        if (!$this->kurse->contains($kurse)) {
+            $this->kurse->add($kurse);
+        }
+
+        return $this;
+    }
+
+    public function removeKurse(Kurs $kurse): static
+    {
+        $this->kurse->removeElement($kurse);
 
         return $this;
     }
