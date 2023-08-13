@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Fachrichtung;
+use App\Factory\FachrichtungFactory;
 use App\Factory\SchuelerFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -20,6 +21,9 @@ class AppFixtures extends Fixture
         $manager->persist($fachrichtung2);
         $manager->flush();
 
-        SchuelerFactory::new()->many(20)->create();
+        $schueler =  SchuelerFactory::createMany(20, function (){
+            return ['fachrichtung'=> FachrichtungFactory::random() ];
+        });
+
     }
 }
