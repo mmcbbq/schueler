@@ -66,9 +66,12 @@ class SchuelerController extends AbstractController
     public function showschueler (Schueler $schueler):Response
     {
 
+        $fachrichtung = $schueler->getFachrichtung();
+
 
         return $this->render('schueler/show.html.twig',[
-            'schueler'=> $schueler
+            'schueler'=> $schueler,
+            'fachrichtung'=>$fachrichtung
         ]);
     }
     #[Route('/showall/{fach}', name: 'schueler_showall')]

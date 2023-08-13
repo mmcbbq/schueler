@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Fachrichtung;
 use App\Entity\Schueler;
+use App\Repository\FachrichtungRepository;
 use App\Repository\SchuelerRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,15 +35,17 @@ final class SchuelerFactory extends ModelFactory
 {
 
 private $entityManger;
+private $repository;
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
      * @todo inject services if required
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, FachrichtungRepository $repository)
     {
         parent::__construct();
         $this->entityManger = $entityManager;
+        $this->repository = $repository;
     }
 
     /**
@@ -52,8 +55,7 @@ private $entityManger;
      */
     protected function getDefaults(): array
     {
-       $rep =  $this->entityManger->getRepository(Fachrichtung::class);
-       $fachrichtung = $rep->findAll();
+
 
 
 
@@ -66,7 +68,9 @@ private $entityManger;
             'email' => self::faker()->email(),
             'kommentar' => self::faker()->paragraph(3),
             'Vorname' => self::faker()->firstName(),
-            'fachrichtung' => $fachrichtung[array_rand($fachrichtung)]
+//            'fachrichtung' => $this->repository->getrandom()
+//            'fachrichtung' => $fachrichtung[array_rand($fachrichtung)]
+
         ];
     }
 

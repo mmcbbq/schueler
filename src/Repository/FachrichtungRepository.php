@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Fachrichtung;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,9 +18,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FachrichtungRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
+
     {
+        $this->entityManager = $entityManager;
         parent::__construct($registry, Fachrichtung::class);
+    }
+
+
+    public function getrandom():Fachrichtung
+    {
+        $array =$this->entityManager->getRepository(Fachrichtung::class)->findAll();
+        shuffle($array);
+        return $array[0];
     }
 
 //    /**

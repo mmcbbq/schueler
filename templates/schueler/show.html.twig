@@ -8,6 +8,7 @@
 <div>{{ schueler.telefonNummer }}</div>
 <div>{{ schueler.email }}</div>
 <div>{{ schueler.kommentar }}</div>
+    <div>{{ fachrichtung.bezeichnung }}</div>
     <input type="button" onclick="window.location.href='{{ path('schueler_delete',{id:schueler.id}) }}';" value="Löschen" />
     <input type="button" onclick="window.location.href='{{ path('schueler_update',{id:schueler.id}) }}';" value="Change" />
 
