@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Fachrichtung;
 use App\Entity\Schueler;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,7 +28,13 @@ class SchuelerFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('kommentar' , TextareaType::class)
             ->add('Vorname')
+            ->add('fachrichtung', EntityType::class,[
+                'class'=> Fachrichtung::class,
+                'choice_label' => 'bezeichnung',
+                'expanded' => true
+            ])
             ->add('save', SubmitType::class, ['label' => 'Create Schueler'])
+
         ;
     }
 

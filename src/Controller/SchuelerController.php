@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Fachrichtung;
 use App\Entity\Schueler;
 use App\Form\SchuelerFormType;
 use App\Repository\SchuelerRepository;
@@ -38,6 +39,12 @@ class SchuelerController extends AbstractController
     public function createschueler (Request $request, EntityManagerInterface $entityManager) :Response
     {
         $schueler = new Schueler();
+        $fach = new Fachrichtung();
+        $fach->setBezeichnung('test');
+
+
+
+
         $form = $this->createForm(SchuelerFormType::class, $schueler);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
