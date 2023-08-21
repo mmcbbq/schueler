@@ -1,6 +1,19 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <div style="width: 40%; float: left; padding: 20px;">
+        <div>
+            <form action="{{ path('schueler_showall') }}">
+                <input
+                type="search"
+                name="search"
+                placeholder="{{ app.request.query.get('search') }}"
+
+                >
+
+            </form>
+
+        </div>
+
         {% for schueler in schuelers %}
 
             <a href="{{ path('schueler_show', {id: schueler.id}) }}">{{ schueler.nachname }}</a>
